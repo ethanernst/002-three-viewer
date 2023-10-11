@@ -1,8 +1,5 @@
-# React + Vite
+# three-viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Week 3 - 10/8 - 10/14**
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Web viewer for 3D models using three.js
