@@ -1,14 +1,23 @@
 import { useState } from 'react';
 
 import styled from 'styled-components';
+import FileDropZone from './FileDropZone';
 
 const StyleContainer = styled.div`
-  width: 500px;
-  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: min-content;
+  height: min-content;
+  padding: 20px;
   margin: 30px;
-  background-color: darkslategray;
   border-radius: 25px;
+  background-color: black;
   text-align: center;
+
+  input {
+    padding: 20px;
+  }
 `;
 
 function Sidebar() {
@@ -17,21 +26,12 @@ function Sidebar() {
   return (
     <StyleContainer>
       <h1>three-viewer</h1>
-      <br />
       <h3>Options</h3>
       <p>Option 1</p>
       <p>Option 2</p>
       <p>Option 3</p>
-      <br />
       <h3>Upload</h3>
-      <input
-        type="file"
-        name="modelUpload"
-        onChange={event => {
-          console.log(event.target.files[0]);
-          setFileUrl(event.target.files[0]);
-        }}
-      />
+      <FileDropZone />
     </StyleContainer>
   );
 }
