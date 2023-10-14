@@ -1,21 +1,35 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+
+import { useAtom } from 'jotai';
+import { currentFile } from '../store/settings';
 
 import styled from 'styled-components';
 
 const StyleContainer = styled.div`
-  width: 90%;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: transparent;
   border: 5px dashed white;
   transition: all 0.2s;
 
-  background-color: ${({ color }) => color};
+  input {
+    display: none;
+  }
 `;
-
-const MAX_FILESIZE_IN_BYTES = 10000000;
 
 function FileDropZone() {
   const [dragging, setDragging] = useState(false);
+  const [uploadedFile, setUploadedFile] = useAtom(currentFile);
+
+  const inputRef = useRef();
+
+  const ALLOWED_FILETYPES = ['stl', 'obj', 'gltf', 'fbx'];
+  const MAX_FILESIZE_IN_BYTES = 10000000;
 
   const handleDragOver = e => {
     e.preventDefault();
@@ -30,46 +44,71 @@ function FileDropZone() {
     e.preventDefault();
     setDragging(false);
 
-    const files = e.dataTransfer?.files;
-    console.log('Files dropped:', files);
+    const droppedFile = e.dataTransfer?.files[0];
 
-    files && handleFiles(files);
+    droppedFile && handleFile(droppedFile);
   };
 
-  const handleFiles = files => {
-    const file = files[0];
+  const handleClick = () => inputRef.current.click();
+
+  const handleUpload = e => {
+    e.preventDefault();
+
+    const uploadedFile = e.target?.files[0];
+
+    uploadedFile && handleFile(uploadedFile);
+  };
+
+  const handleFile = targetFile => {
+    const file = targetFile;
     const fileSize = file.size;
 
-    const allowedFileTypes = ['.obj', '.stl', '.glb', '.gltf'];
-
     const fileExtension = file.name.split('.').pop();
-    const validFile = allowedFileTypes.includes(
-      '.' + fileExtension.toLowerCase()
-    );
+    const validFile = ALLOWED_FILETYPES.includes(fileExtension.toLowerCase());
 
+    // check size
     if (fileSize > MAX_FILESIZE_IN_BYTES) {
-      alert('File size exceeds the maximum limit of 10MB.');
+      alert(
+        `File size exceeds the maximum limit of ${
+          MAX_FILESIZE_IN_BYTES / 1000000
+        }MB.`
+      );
       return;
     }
 
+    // check filetype
     if (!validFile) {
-      alert('Please drop only 3D filetypes (e.g., .obj, .stl, .glb, .gltf).');
+      alert(
+        'Please choose a supported filetype (e.g., .obj, .stl, .gltf, .fbx).'
+      );
       return;
     }
 
-    // Handle the file upload logic here
+    // set state to file
+    setUploadedFile(file);
     console.log('File uploaded:', file);
   };
 
   return (
-    <StyleContainer
-      color={dragging ? 'white' : 'transparent'}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-    >
-      <input type="file" accept=".obj,.stl,.glb,.gltf" onChange={handleDrop} />
-    </StyleContainer>
+    <>
+      <h3>Current file:</h3>
+      <span>{uploadedFile?.name || '---'}</span>
+      <br />
+      <StyleContainer
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onClick={handleClick}
+        onDrop={handleDrop}
+      >
+        <p>Click or drag file to upload</p>
+        <input
+          type="file"
+          ref={inputRef}
+          accept=".obj,.stl,.glb,.gltf,.fbx"
+          onChange={handleUpload}
+        />
+      </StyleContainer>
+    </>
   );
 }
 

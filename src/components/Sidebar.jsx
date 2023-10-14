@@ -12,17 +12,11 @@ const StyleContainer = styled.div`
   padding: 20px;
   margin: 30px;
   border-radius: 25px;
-  background-color: black;
+  background-color: #242424;
   text-align: center;
-
-  input {
-    padding: 20px;
-  }
 `;
 
 function Sidebar() {
-  const [fileUrl, setFileUrl] = useState('');
-
   return (
     <StyleContainer>
       <h1>three-viewer</h1>
@@ -30,7 +24,6 @@ function Sidebar() {
       <p>Option 1</p>
       <p>Option 2</p>
       <p>Option 3</p>
-      <h3>Upload</h3>
       <FileDropZone />
     </StyleContainer>
   );
