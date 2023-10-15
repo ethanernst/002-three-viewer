@@ -72,7 +72,7 @@ Error generating stack: `+s.message+`
   p {
     line-height: 1;
   }
-`;function GI(){const[n,e]=fa(zI),[t,i]=fa(NC),[r,s]=fa(IC),o=f=>{t!==f.target.checked&&i(!t)},a=f=>{n!==f.target.checked&&e(!n)},c=f=>{s(f.target.value)};return At.jsxs(VI,{children:[At.jsx("h1",{children:"three-viewer"}),At.jsx("h3",{children:"Options"}),At.jsx("p",{children:"Wireframe"}),At.jsx("input",{type:"checkbox",checked:t,onChange:o}),At.jsx("p",{children:"Lights"}),At.jsx("input",{type:"checkbox",checked:n,onChange:a}),At.jsxs("p",{children:["Scale: ",r]}),At.jsx("input",{type:"range",min:.5,max:1.5,step:.1,value:r,onChange:c}),At.jsx(HI,{})]})}/**
+`;function GI(){const[n,e]=fa(zI),[t,i]=fa(NC),[r,s]=fa(IC),o=f=>{t!==f.target.checked&&i(!t)},a=f=>{n!==f.target.checked&&e(!n)},c=f=>{s(f.target.value)};return At.jsxs(VI,{children:[At.jsx("h1",{children:"three-viewer"}),At.jsx("h4",{children:"Orbit with left click, pan with right click, zoom with mouse wheel."}),At.jsx("p",{children:"Wireframe"}),At.jsx("input",{type:"checkbox",checked:t,onChange:o}),At.jsx("p",{children:"Lights"}),At.jsx("input",{type:"checkbox",checked:n,onChange:a}),At.jsxs("p",{children:["Scale: ",r]}),At.jsx("input",{type:"range",min:.5,max:1.5,step:.1,value:r,onChange:c}),At.jsx(HI,{})]})}/**
  * @license
  * Copyright 2010-2023 Three.js Authors
  * SPDX-License-Identifier: MIT
