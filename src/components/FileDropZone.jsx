@@ -12,6 +12,7 @@ const StyleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   background-color: transparent;
   border: 5px ${({ borders }) => borders} white;
