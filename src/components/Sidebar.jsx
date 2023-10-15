@@ -46,7 +46,9 @@ function Sidebar() {
   return (
     <StyleContainer>
       <h1>three-viewer</h1>
-      <h3>Options</h3>
+      <h4>
+        Orbit with left click, pan with right click, zoom with mouse wheel.
+      </h4>
       <p>Wireframe</p>
       <input
         type="checkbox"
