@@ -6,15 +6,15 @@ import { currentFile } from '../store/settings';
 import styled from 'styled-components';
 
 const StyleContainer = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   margin: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
 
   background-color: transparent;
-  border: 5px dashed white;
+  border: 5px ${({ borders }) => borders} white;
   transition: all 0.2s;
 
   input {
@@ -28,7 +28,7 @@ function FileDropZone() {
 
   const inputRef = useRef();
 
-  const ALLOWED_FILETYPES = ['stl', 'obj', 'gltf', 'fbx'];
+  const ALLOWED_FILETYPES = ['stl', 'obj', 'glb', 'gltf', 'fbx'];
   const MAX_FILESIZE_IN_BYTES = 10000000;
 
   const handleDragOver = e => {
@@ -95,12 +95,13 @@ function FileDropZone() {
       <span>{uploadedFile?.name || '---'}</span>
       <br />
       <StyleContainer
+        borders={dragging ? 'solid' : 'dashed'}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onClick={handleClick}
         onDrop={handleDrop}
       >
-        <p>Click or drag file to upload</p>
+        <p>Click or drag file to upload (only supports .stl files currently)</p>
         <input
           type="file"
           ref={inputRef}

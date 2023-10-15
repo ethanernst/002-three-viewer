@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
+import { PerspectiveCamera, OrbitControls } from '@react-three/drei';
 
 import { useAtom } from 'jotai';
 import { currentFile } from '../store/settings';
@@ -23,12 +24,15 @@ const getLoader = fileExtension => {
   switch (fileExtension) {
     case 'stl':
       return new STLLoader();
-    case 'obj':
-      return new OBJLoader();
-    case 'gltf':
-      return new GLTFLoader();
-    case 'fbx':
-      return new FBXLoader();
+    // other types not working currently
+    // case 'obj':
+    //   return new OBJLoader();
+    // case 'gltf':
+    //   return new GLTFLoader();
+    // case 'glb':
+    //   return new GLTFLoader();
+    // case 'fbx':
+    //   return new FBXLoader();
     default:
       throw new Error('Filetype not supported');
   }
@@ -37,6 +41,13 @@ const getLoader = fileExtension => {
 function Viewer() {
   const [uploadedFile] = useAtom(currentFile);
   const [loadedMesh, setLoadedMesh] = useState(null);
+
+  const cameraRef = useRef();
+  const cameraProperties = {
+    position: [0, 10, 20],
+    rotation: [-Math.PI / 6, 0, 0],
+    fov: 30,
+  };
 
   const parseUploadedFile = file => {
     const fileExtension = file.name.split('.').pop();
@@ -61,9 +72,11 @@ function Viewer() {
   return (
     <StyleContainer>
       <Canvas>
-        <ambientLight />
-        <directionalLight intensity={0.5} />
-        <Model geometry={loadedMesh} />
+        <PerspectiveCamera ref={cameraRef} {...cameraProperties} />
+        <ambientLight intensity={1} />
+        <directionalLight position={[5, 5, 5]} intensity={1} />
+        <Model geometry={loadedMesh} scale={2} />
+        <OrbitControls />
       </Canvas>
     </StyleContainer>
   );

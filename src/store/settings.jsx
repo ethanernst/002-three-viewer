@@ -1,9 +1,9 @@
 import { atom } from 'jotai';
 
 // jotai state values
-const scale = atom(0);
-const rotation = atom(0);
+const scale = atom(1);
+const lights = atom(true);
 const wireframe = atom(false);
 const currentFile = atom(null);
 
-export { scale, rotation, wireframe, currentFile };
+export { scale, lights, wireframe, currentFile };
